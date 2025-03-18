@@ -1,4 +1,4 @@
-import {csvFormat, tsvParse} from "d3-dsv";
+import {csvFormat, csvParse, tsvParse} from "d3-dsv";
 import {utcParse} from "d3-time-format";
 import {FileAttachment} from "observablehq:stdlib";
 
@@ -8,7 +8,8 @@ async function text(url) {
   return response.text();
 }
 
-// load local csv data
+
+const incomeHistory = csvParse(meanIncomePerCapita)
 
 // “Top” vehicles
 const TOP_LAUNCH_VEHICLES = new Set([
@@ -34,9 +35,6 @@ const TOP_STATES_MAP = new Map([
 
 // Load and parse launch vehicles.
 const launchVehicles = tsvParse(await text("https://planet4589.org/space/gcat/tsv/tables/lv.tsv"));
-
-// Load local csv
-const meanIncomePerCapita =
 
 // Construct map to lookup vehicle family from name.
 const launchVehicleFamilyMap = new Map(launchVehicles.map((d) => [d["#LV_Name"], d.LV_Family.trim()]));
